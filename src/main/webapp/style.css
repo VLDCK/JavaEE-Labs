@@ -1,0 +1,49 @@
+ *{
+            margin: 0;
+            padding: 5px;
+            color: #ECEDF0;
+        }
+    
+        html {
+            box-sizing: border-box;
+            font-size: 1px !important;
+        }
+    
+        body,br {
+            font: normal 14rem/21rem Arial;
+            background-color: #1E2F46;
+            text-align: center;
+        }
+        input{
+            font-size:medium;
+        }
+    
+        .outer {
+            display: table;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+    
+        .middle {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    
+        .inner {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 570rem;
+            min-width: 360rem;
+            padding: 20rem;
+        }
+        option, select, input{
+            color: black;
+        }
+        
+        h3 {
+            line-height: 45rem;
+            font-size: 45rem;
+        }
