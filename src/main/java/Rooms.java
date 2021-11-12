@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -17,19 +18,19 @@ import javax.servlet.http.HttpServletResponse;
 public class Rooms extends HttpServlet {
 
    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
         try (PrintWriter out = response.getWriter()) {
             
-        }
-    }
+    }   }
 
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     
@@ -46,9 +47,7 @@ public class Rooms extends HttpServlet {
                 if(cookieName.equals(c.getName())) {
                     cookie = c;
                     break;
-                }
-            }
-        }
+        }   }  }
 
         PrintWriter out = response.getWriter();
          String apparts = request.getParameter("apparts");
@@ -62,14 +61,15 @@ public class Rooms extends HttpServlet {
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"); 
             out.println("<h3>Thank you "+ cookie.getValue() +" for choosing of " + apparts + " apparts in our holet.</h3>");
             out.println("<h2>Please, wait for call in 15 minutes to confirm your order.</h2>");
+            out.println("<form action=\"index.html\" method=\"POST\">\n" +
+                        "<br><input type=\"submit\" value=\"OK\"/></br>\n" +
+                        "</form>");
             out.println("</body>");
             out.println("</html>");
-            
-            
+
         } finally {
             out.close();  
-        }
-    }
+    }   }
 
     
     @Override
