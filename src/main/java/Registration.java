@@ -12,12 +12,27 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @WebServlet(urlPatterns = {"/Registration"})
-
 public class Registration extends HttpServlet {
 
-   
+    ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+    Validator validator = vf.getValidator();
+    
+    Visitor visitor = new Visitor();
+    
+    @Override
+    protected void doGet(HttpServletRequest request, 
+				HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+    }
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -38,25 +53,41 @@ public class Registration extends HttpServlet {
     }
     
     public String fullField(HttpServletRequest request)
-    {   
+    {    
+        visitor.name = request.getParameter("name");
+        visitor.phone = request.getParameter("tel");
+        visitor.countOfPeople = request.getParameter("peopleNumber");
+        String dayNumber = request.getParameter("daysNumber");
         String path;
-        String name = request.getParameter("name");
-        String number = request.getParameter("tel");
-        String countOfPeople = request.getParameter("peopleNumber");
-        String countOfDay=request.getParameter("daysNumber");
-        if( name==""|| number.length()!=15 ||countOfPeople=="0"||countOfPeople=="")
-            path = request.getContextPath()+ "/NotFoundPage";
+       
+        
+        if(Visitor.isValidate(visitor, validator)){
+            path = " ";
+        }   
         else
-            path = request.getContextPath()+ "/rooms.html";
+            path = visitor.validate(visitor, validator);
         return path;
     }
       
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter writer = response.getWriter();
         response.setContentType("text/html");
         response.addCookie(new Cookie("name", request.getParameter("name")));
-        response.sendRedirect(fullField(request));
+        
+        String result = fullField(request);
+        if(!result.startsWith(" ")) {   
+            try {
+                writer.println("<h2>" + result + "</h2>");
+            } 
+            finally {
+                writer.close();  
+            }
+        }
+        else{
+            response.sendRedirect("/Registration/rooms.html");
+        }
     }
 
     

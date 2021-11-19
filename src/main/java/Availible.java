@@ -8,11 +8,13 @@ import java.lang.annotation.RetentionPolicy;
 
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
+import javax.validation.ReportAsSingleViolation;
 
 /**
  *
  * @author User
  */
+
 @Qualifier
 @Target({METHOD, FIELD, PARAMETER, TYPE})
 @Retention(RetentionPolicy.RUNTIME)

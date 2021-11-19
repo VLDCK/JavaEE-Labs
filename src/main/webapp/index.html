@@ -11,14 +11,17 @@
         <h4><b>Please fill out the form and reserve a room </b></h4>
         
     <form action="Registration" method="POST">
-    <br>Your Full Name:   <input name="name" /></br>
-    <br>Phone Number:     <input name="tel" value="+(380)" /></br>
-    <br>Number Of People: <input name="peopleNumber" /></br>
+    <br>Your Full Name:   <input type="text" name="name" /></br>
+    <br>Phone Number:     <input type="text" name="tel" value="+380" /></br>
+    <br>Number Of People: <input type="text" name="peopleNumber" /></br>
     <br>Number Of Days:   <input type="range" min ="1" max="14"  name="daysNumber" /></br>
     <br><input type="submit" value="Find The Room"/></br>
     </form>
     <form action="roomsAV" method="POST">
     <br><input type="submit" value="Check Avalible Rooms"/></br>
+    </form>
+        <form action="ValidationServlet" method="POST">
+    <br><input type="submit" value="ValServl"/></br>
     </form>
   
     </body>

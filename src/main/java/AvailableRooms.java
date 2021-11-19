@@ -7,6 +7,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Default
@@ -17,6 +19,8 @@ public class AvailableRooms {
 
     
     private ArrayList<Room> rooms;
+    @NotNull(message="Count of rooms should have more than 0")
+    @Min(0)
     private int avalibleRoomsNum;
     
     @Inject
@@ -29,7 +33,7 @@ public class AvailableRooms {
         rooms.add(new Room(136,"Comfort Studio","Forest View"));
     }
     
-    @PostConstruct
+    //@PostConstruct
     public void setAvailibleRoomNum()
     {
         avalibleRoomsNum = rooms.size();

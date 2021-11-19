@@ -16,8 +16,11 @@ import javax.interceptor.AroundConstruct;
 
 public class Room {
     
+    
     private int number ;
+    
     private String suite;
+    
     private String view;
    
     
