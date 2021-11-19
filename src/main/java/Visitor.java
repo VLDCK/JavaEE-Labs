@@ -14,7 +14,8 @@ public class Visitor {
        @Pattern(regexp="^[a-A]$"),
        @Pattern(regexp="^[0-9]$")
    }) 
-  
+   
+
   @NotNull(message="<br>Name have to be written")
   @Size(min = 2, message="The name of people must be more than 1 symbol")
   String name;

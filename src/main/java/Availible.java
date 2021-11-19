@@ -8,13 +8,17 @@ import java.lang.annotation.RetentionPolicy;
 
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
+import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-/**
- *
- * @author User
- */
 
+@NotNull
+@Digits(fraction = 0, integer = 10)  
+@ReportAsSingleViolation
+@Constraint(validatedBy = {})
 @Qualifier
 @Target({METHOD, FIELD, PARAMETER, TYPE})
 @Retention(RetentionPolicy.RUNTIME)
