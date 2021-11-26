@@ -52,6 +52,7 @@ public class ValidationServlet extends HttpServlet {
             String str = testInterfacee.getTestImplement();
             writer.write(str+"\n");
             Timer timer = null ;
+            
             str = testbeanTwo.programmTimout(timer);
             writer.write(str);
             

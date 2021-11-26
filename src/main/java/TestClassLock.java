@@ -13,14 +13,11 @@ import javax.ejb.Timer;
 @Singleton
 public class TestClassLock implements TestInterface{
     
-    
 @Resource(name = "testIntValue")
 private int sum;
 
 @Resource(name = "testStringValue")
 private String field;
-
-
 
 
 public TestClassLock()
