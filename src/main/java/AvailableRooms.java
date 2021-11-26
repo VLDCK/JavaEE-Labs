@@ -23,7 +23,7 @@ public class AvailableRooms {
     @Min(0)
     private int avalibleRoomsNum;
     
-    @Inject
+    /*@Inject
     public AvailableRooms()
     {
         this.rooms = new ArrayList();
@@ -32,7 +32,7 @@ public class AvailableRooms {
         rooms.add(new Room(361,"Junior Suite ","City View"));
         rooms.add(new Room(136,"Comfort Studio","Forest View"));
     }
-    
+    */
     //@PostConstruct
     public void setAvailibleRoomNum()
     {

@@ -1,4 +1,6 @@
 
+import java.lang.annotation.Annotation;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
@@ -11,10 +13,10 @@ import javax.interceptor.AroundConstruct;
  */
 
 
-@Default
-@RequestScoped
+//@Default
+//@RequestScoped
 
-public class Room {
+public class Room implements Availible {
     
     
     private int number ;
@@ -39,6 +41,16 @@ public class Room {
         return "Number: "+ this.number+"<br>"
                 + "Suite: "+ this.suite+"<br>"
                 + "View: "+this.view+"<br>";
+    }
+
+    @Override
+    public String getAvailibleRoomsNum() {
+         return "Its Local";
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

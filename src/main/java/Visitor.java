@@ -1,14 +1,18 @@
 
 import java.util.Set;
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.RunAs;
+import javax.ejb.Stateless;
 import javax.validation.ConstraintViolation;
-import javax.validation.ReportAsSingleViolation;
 import javax.validation.Validator;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
+@Stateless
+@RolesAllowed({"user", "admin"})
+@RunAs("inventoryDpt")
 public class Visitor {
    @Pattern.List({
        @Pattern(regexp="^[a-A]$"),
@@ -29,16 +33,14 @@ public class Visitor {
   @Size(min = 1, message="The number of people must be more than 1")
   String countOfPeople;
   
-  /*@Size(min = 1, message="The number of people must be more than 1")
-  @NotNull(message="<br>Count Of People must be set")
-  String daysNumber;
-*/
+ 
+  @DenyAll
   @Override
   public String toString() {
     return String.format("name: [%s], phone: [%s], countOfPeople: [%s]",
         name, phone, countOfPeople);
   }
-
+  @RolesAllowed("admin")
   public String validate(Object object, Validator validator) {
     Set<ConstraintViolation<Object>> constraintViolations = validator
         .validate(object);
@@ -53,7 +55,7 @@ public class Visitor {
     return res;
   }
   
-  
+  @RolesAllowed("admin")
     public static boolean isValidate(Object object, Validator validator) {
     Set<ConstraintViolation<Object>> constraintViolations = validator
         .validate(object);

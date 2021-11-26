@@ -6,6 +6,9 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.ejb.Timer;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,37 +25,41 @@ import javax.validation.ValidatorFactory;
 @WebServlet(urlPatterns = {"/ValidationServlet"})
 public class ValidationServlet extends HttpServlet {
 
+    @EJB
+    TestInterface testInterfacee;
     
-    ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
-    Validator validator = vf.getValidator();
-    
-    Visitor visitor = new Visitor();
+    //@EJB
+    //TestClassBean testbean;
     
     
-
+    @EJB
+    TestClassLock testbeanTwo;
+    Timer timer ;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter writer = response.getWriter();
-	 visitor.name = request.getParameter("fn");
-        // user. = request.getParameter("ln");
-         //user.firstname = request.getParameter("fn");
+            PrintWriter writer = response.getWriter();
+            String str = testInterfacee.getTestImplement();
+            writer.write(str);
+    }
+    
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            PrintWriter writer = response.getWriter();
+            String str = testInterfacee.getTestImplement();
+            writer.write(str+"\n");
+            Timer timer = null ;
+            str = testbeanTwo.programmTimout(timer);
+            writer.write(str);
+            
         
-        try {
-            writer.println("<h2>Firstname: " + visitor.validate(visitor, validator) + "</h2>");
-        } 
-        catch(Exception e)
-        {
-            writer.println(e.getMessage());
-        }
-        finally {
-            writer.close();  
-        }
+        
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    /*protected void processRequest(HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -67,15 +74,11 @@ public class ValidationServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    }*/
     
 
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    
 
    
     @Override

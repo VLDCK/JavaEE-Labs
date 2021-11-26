@@ -7,6 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import java.lang.annotation.Target;
+import javax.ejb.Local;
 import javax.inject.Qualifier;
 import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
@@ -22,7 +23,7 @@ import javax.validation.constraints.Size;
 @Qualifier
 @Target({METHOD, FIELD, PARAMETER, TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-
+@Local
 public @interface Availible {
    
     String getAvailibleRoomsNum();
