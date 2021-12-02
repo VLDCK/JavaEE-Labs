@@ -1,9 +1,15 @@
 
+import java.text.DecimalFormat;
 import java.util.Set;
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.RolesAllowed;
 import javax.annotation.security.RunAs;
 import javax.ejb.Stateless;
+import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
@@ -13,12 +19,10 @@ import javax.validation.constraints.Size;
 @Stateless
 @RolesAllowed({"user", "admin"})
 @RunAs("inventoryDpt")
-public class Visitor {
-   @Pattern.List({
-       @Pattern(regexp="^[a-A]$"),
-       @Pattern(regexp="^[0-9]$")
-   }) 
-   
+@SessionScoped
+@FacesConverter("numberConverter")
+public class Visitor implements Converter {
+      
 
   @NotNull(message="<br>Name have to be written")
   @Size(min = 2, message="The name of people must be more than 1 symbol")
@@ -63,4 +67,19 @@ public class Visitor {
     
     return constraintViolations.size() > 0 ? false : true ;
   }
+
+    
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        return value; 
+    }
+
+    
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        int countOfPeopleInt = Integer.parseInt(value.toString());
+        DecimalFormat df = new DecimalFormat("###,##0.##");
+        return df.format(countOfPeopleInt); 
+
+    }
 }

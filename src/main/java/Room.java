@@ -4,25 +4,18 @@ import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
+import javax.faces.convert.FacesConverter;
+import javax.inject.Named;
 import javax.interceptor.AroundConstruct;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-
-//@Default
-//@RequestScoped
-
+@Named
+@Default
+@RequestScoped
 public class Room implements Availible {
-    
-    
+      
     private int number ;
-    
     private String suite;
-    
     private String view;
    
     

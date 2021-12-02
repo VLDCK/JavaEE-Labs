@@ -1,22 +1,75 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"lana del rey
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+    
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="style.css" />
-  
+        <link rel="stylesheet" type="text/css" href="style.css" /> 
     </head>
-    <body>
+    <h:body>  
+
         <h1>Hello, Welcome to "IT Hotel!"</h1>
         <h4><b>Please fill out the form and reserve a room </b></h4>
+    <f:view>
+        <p>
+
+    <h:form id="Registration">
+        <br>Your Full Name:   <h:inputText  id="name" /></br>
+        <c:forTokens 
+	  name = "Vlad:Ivan:Anatolyi:Andrey" 
+	  delims = ":" var = "name">
+	  <c:out value = "Name: ${name}"/><p>
+        </c:forTokens>
         
-    <form action="Registration" method="POST">
-    <br>Your Full Name:   <input type="text" name="name" /></br>
-    <br>Phone Number:     <input type="text" name="tel" value="+380" /></br>
-    <br>Number Of People: <input type="text" name="peopleNumber" /></br>
-    <br>Number Of Days:   <input type="range" min ="1" max="14"  name="daysNumber" /></br>
-    <br><input type="submit" value="Find The Room"/></br>
-    </form>
+        <c:catch var ="exceptionThrown">
+	    <% String str = "name";%>
+        </c:catch>
+<c:if test = "${exceptionThrown == null}">
+	    <p>The exception is : ${exceptionThrown} <br />
+	      There is an exception: ${exceptionThrown.message}
+	    </p>
+</c:if>
+    <br>Phone Number:     
+        <h:inputText  id="tel" value="+380" required="true">
+            <f:validateLength minimum="13" maximum="13"/>
+        </h:inputText></br>
+    
+    <br>Number Of People: <h:inputText  id="peopleNumber" value="#{JSF_ExamleTest.adultNumber}"/></br>
+    <br>Number Of Children: <h:inputText  id="childrenNumber" value="#{JSF_ExamleTest.childrenNumber}"/></br>
+    
+    <br>Number Of Days:     <fmt:formatNumber value="#{countOfDays}" type="number"/>
+        <h:inputText  id="daysNumber" size="2" maxlength="2">
+           <convertNumber min = "2"/>
+        </h:inputText>
+    <h:outputText       id="result" value="#{JSF_ExamleTest.sumOfPeople()}" converter = "numberConverter"/>/></br>
+      <br/><br/>
+      
+    <h:selectOneMenu id="chossing" value="Choose Your View">
+    <f:selectItem id="item1" itemLabel="Sea View" itemValue="1" />
+    <f:selectItem id="item2" itemLabel="City View" itemValue="2" />
+    <f:selectItem id="item3" itemLabel="Forest View" itemValue="3" />
+    </h:selectOneMenu>
+      
+    <h:selectOneListbox id="viewresult"
+        value="#{JSF_ExamleTest.getViewResult()}">
+    </h:selectOneListbox>
+
+
+    <br><commandLink action="#Registration" value="Find The Room"/></br>
+    <h:button outcome="Registration" value="Find The Room"/>
+    
+
+    </h:form> 
+    </p>
+  </f:view>
+</h:body>
+    <body>
+
     <form action="roomsAV" method="POST">
     <br><input type="submit" value="Check Avalible Rooms"/></br>
     </form>
